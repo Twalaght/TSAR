@@ -1,0 +1,6 @@
+#!/bin/sh
+# Checks out my SVN repository to documents
+
+svn co https://version-control.adelaide.edu.au/svn/a1740309 ~/Documents/a1740309 || \
+echo "Unable to check out SVN repository. Make sure you are using the right student number \
+and that you are connected to the internet"

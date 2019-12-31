@@ -1,0 +1,58 @@
+#!/bin/bash
+# Displays a message when shut down
+
+# Stores all the shutdown messages
+array[0]="It's been fun"
+array[1]="Until next time"
+array[2]="Go get 'em tiger"
+array[3]="Make it so"
+array[4]="See you on the other side"
+array[5]="Exhibit no restraint"
+array[6]="Rip and tear"
+array[7]="Have just the greatest day"
+array[8]="Avenge me"
+array[9]="Stay safe"
+array[10]="Situation normal"
+array[11]="PROTOCOL <3"
+array[12]="Fly, you fool"
+array[13]="Never surrender"
+array[14]="See you Space Cowboy"
+array[15]="End of the line"
+array[16]="A leaf on the wind"
+array[17]="You are who you choose to be"
+array[18]="Finish the fight"
+array[19]="Change da world, my final message. Goodbye"
+array[20]="Protocol 3: Protect the pilot"
+array[21]="I'm ready! How 'bout you?"
+array[22]="Tell 'em to make it count"
+array[23]="Negative. I have the gun. Good luck sir"
+
+# Picks a random quote to send
+size=${#array[@]}
+index=$((RANDOM%size))
+
+# Displays the appropriate opening message
+clear
+if [ "$1" = -r ]; then
+	echo -e "\nRESTART ENGAGED"
+elif [ "$1" = -t ]; then
+	echo -e "\nA message to you:"
+else
+	echo -e "\nSHUTDOWN ENGAGED"
+fi
+
+# Displays a message from the array, on a delay
+sleep 1
+echo -e "\n${array[$index]}"
+sleep 3
+
+# If the restart flag is given, restarts
+# If the test flag is given, only clears
+# Otherwise shuts down
+if [ "$1" = -r ]; then
+	shutdown now -r
+elif [ "$1" = -t ]; then
+	clear
+else
+	shutdown now
+fi
