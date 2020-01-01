@@ -1,7 +1,6 @@
 #!/bin/sh
 
-##TODO Wrap installs into 1 func
-
+##Copy wallpaper, misc fixes
 
 # Displays menus to guide the user through installation
 menus() {
@@ -53,7 +52,9 @@ error() {
 
 # Copies TSARs dotfiles
 dotfiles() {
-
+	echo "Copying dotfiles... "
+	\cp -rT dotfiles/ ~/
+	echo "done"
 }
 
 # Installs TSARs set of programs
@@ -83,19 +84,22 @@ proginstall() {
 	done } < progs.csv
 }
 
+# Main loop for the script
+main() {
+	menus
+	if [ -z "$edition" ]; then
+		exit
+	elif [ "$edition" = both ]; then
+		dotfiles
+		proginstall
+	elif [ "$edition" = files ]; then
+		dotfiles
+	elif [ "$edition" = programs ]; then
+		proginstall
+	fi
+	echo
+	echo "Installation complete!"
+}
 
-menus
-
-if [ -z "$edition" ]; then
-	exit
-elif [ "$edition" = both ]; then
-	dotfiles
-	proginstall
-elif [ "$edition" = files ]; then
-	dotfiles
-elif [ "$edition" = programs ]; then
-	proginstall
-fi
-
-echo
-echo "Installation complete!"
+# Runs the main loop for the script
+main
