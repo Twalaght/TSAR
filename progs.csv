@@ -1,0 +1,39 @@
+Tag,Program,Comment
+,xorg-server,main graphical server
+,xorg-xinit,starts the graphical server
+,i3-gaps,window manager
+,rofi,program launcher
+,kitty,terminal emulator
+,lightdm,display manager
+,lightdm-gtk-greeter,login greeter
+,lightdm-gtk-greeter-settings,settings for the login greeter
+A,cava,audio visualizer
+,cmatrix,nice to look at
+A,compton-tryone-git,compositor for the WM
+,discord,chat client
+,feh,image viewer and manager
+,ffmpeg,multimedia manipulation tool
+,gcc,compiler collection
+A,google-chrome,web browser
+,gucharmap,tool to show characters in fonts
+,htop,a process manager
+,i3lock,computer lock utility
+,imagemagick,image manipulation tool
+A,light-git,tool to control screen brightness
+,man,tool to show manuals
+,nano,simple text editor
+,neofetch,system information tool
+,networkmanager,network management tool
+,network-manager-applet,GUI network manager
+A,pipes.sh,nice to look at
+A,polybar,status bar
+,pulseaudio-alsa,audio drivers
+P,pywal,tool to generate colour schemes
+,scrot,screenshot utility
+,shellcheck,shell script analysis tool
+A,sublime-text-dev,fancy text editor
+,subversion,version control software
+A,ttf-font-awesome,contains useful icons
+A,ttf-inconsolata,terminal font of choice
+A,ttf-ms-fonts,collection of Microsoft fonts
+,vim,powerful text editor

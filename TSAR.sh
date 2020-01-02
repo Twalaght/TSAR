@@ -44,6 +44,26 @@ pipinstall() {
 	
 }
 
+# Installs prerequisite software for installation
+initalsetup() {
+	# Installs base-devel, git, and python-pip
+	printf "%s" "[Setup] Installing base-devel : tools required for package building... "
+	packageinstall base-devel
+	printf "%s" "[Setup] Installing git : version control software... "
+	packageinstall git
+	printf "%s" "[Setup] Installing python-pip : the python package manager... "
+	packageinstall python-pip
+	
+	# Installs trizen manually from the AUR
+	printf "%s" "[Setup] Installing trizen : the AUR helper... "
+	if ! [ -x "$(command -v trizen)" ]; then
+		git clone https://aur.archlinux.org/trizen.git >/dev/null 2>&1
+		cd trizen && makepkg --noconfirm --needed -si trizen >/dev/null 2>&1
+		cd .. && rm -rf trizen
+	fi
+	echo "done"
+}
+
 # Logs programs that trigger errors when installing
 error() {
 	echo "ERROR - Written to log file"
@@ -52,13 +72,16 @@ error() {
 
 # Copies TSARs dotfiles
 dotfiles() {
-	echo "Copying dotfiles... "
+	printf "%s" "Copying dotfiles... "
 	\cp -rT dotfiles/ ~/
 	echo "done"
 }
 
 # Installs TSARs set of programs
 proginstall() {
+	# Performs required initial setup
+	initalsetup
+
 	# Counts the total number of programs to be installed
 	total=$(($(wc -l < progs.csv) - 1))
 
@@ -72,34 +95,33 @@ proginstall() {
 		comment=$(echo "$comment" | sed -e 's/\r//g')
 
 		# Displays the progress on installation
-		#echo -n "[$n/$total] $program : $comment... "
 		printf "%s" "[$n/$total] $program : $comment... "
 
 		# Runs the installation command based on the tag
 		case "$tag" in
-			"A") aurinstall "$program" "$comment" ;;
-			"P") pipinstall "$program" "$comment" ;;
-			*) packageinstall "$program" "$comment" ;;
+			"A") aurinstall "$program" ;;
+			"P") pipinstall "$program" ;;
+			*) packageinstall "$program" ;;
 		esac
 	done } < progs.csv
 }
 
-# Main loop for the script
-main() {
-	menus
+# Installs what was specified by the user
+selection() {
 	if [ -z "$edition" ]; then
 		exit
 	elif [ "$edition" = both ]; then
-		dotfiles
 		proginstall
+		dotfiles
 	elif [ "$edition" = files ]; then
 		dotfiles
 	elif [ "$edition" = programs ]; then
 		proginstall
 	fi
-	echo
-	echo "Installation complete!"
 }
 
-# Runs the main loop for the script
-main
+# Main loop for the script
+menus
+selection
+echo
+echo "Installation complete!"
