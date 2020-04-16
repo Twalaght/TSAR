@@ -26,6 +26,10 @@ array[20]="Protocol 3: Protect the pilot"
 array[21]="I'm ready! How 'bout you?"
 array[22]="Tell 'em to make it count"
 array[23]="Negative. I have the gun. Good luck sir"
+array[24]="Any way the wind blows..."
+array[25]="You'll find me chasing the sun"
+array[26]="Hasa Diga Eebowai!"
+array[27]="It'll all be okay"
 
 # Picks a random quote to send
 size=${#array[@]}
