@@ -1,127 +1,83 @@
 #!/bin/sh
 
-##Copy wallpaper, misc fixes
-
-# Displays menus to guide the user through installation
-menus() {
-	# Intro message to TSAR
-	clear
-	if ! dialog --title "TSAR" --yesno "Welcome to TSAR - Twa's Scripted Auto Rice\\n\\nThis script will automatically install an up to date, i3-gaps Arch Linux rice.\\n\\nOptionally, program installation or dotfile merging can be omitted" 12 50; then
-		clear
-		exit
-	fi
-
-	# Gives the user the option of which parts to run
-	edition="$(dialog --title "TSAR method" --menu "Select what you wish TSAR to do to your system:" 10 60 2 programs "Only install programs" files "Only copy dotfiles" both "Install programs and copy dotfiles" 3>&1 1>&2 2>&3 3>&1 && exit)" 
-	clear
+# Install a regular package
+pkg_install() {
+	if sudo pacman -S --noconfirm --needed "$1" >/dev/null 2>&1; then echo "done";
+	else error "$1"; fi
 }
 
-# Installs a standard package with pacman
-packageinstall() {
-	if sudo pacman --noconfirm --needed -S "$1" >/dev/null 2>&1; then
-		echo "done"
-	else
-		error "$1"
-	fi
+# Install a package from the AUR
+aur_install() {
+	if trizen -S --noconfirm --needed "$1" >/dev/null 2>&1; then echo "done";
+	else error "$1"; fi
 }
 
-# Installs AUR packages with trizen
-aurinstall() {
-	if trizen -S --noconfirm --needed "$1" >/dev/null 2>&1; then
-		echo "done"
-	else
-		error "$1"
-	fi
+# Install a python package
+pip_install() {
+	if sudo pip3 install "$1" >/dev/null 2>&1; then echo "done";
+	else error "$1"; fi
 }
 
-# Installs python packages with pip
-pipinstall() {
-	if sudo pip3 install "$1" >/dev/null 2>&1; then
-		echo "done"
-	else
-		error "$1"
-	fi
-	
+# Print an error message and writes to the log file
+error() {
+	echo "ERROR - Written to log file"
+	echo "$1 was unable to be installed" >> log.txt
 }
 
-# Installs prerequisite software for installation
-initalsetup() {
-	# Installs base-devel, git, and python-pip
-	printf "%s" "[Setup] Installing base-devel : tools required for package building... "
-	packageinstall base-devel
-	printf "%s" "[Setup] Installing git : version control software... "
-	packageinstall git
-	printf "%s" "[Setup] Installing python-pip : the python package manager... "
-	packageinstall python-pip
-	
-	# Installs trizen manually from the AUR
-	printf "%s" "[Setup] Installing trizen : the AUR helper... "
+# Install prerequisite software for installation
+init_setup() {
+	# Install base-devel, git, and pip
+	printf "%s" "[Setup] Installing base-devel : tools required for package building... "; pkg_install base-devel
+	printf "%s" "[Setup] Installing git : version control software... "; pkg_install git
+	printf "%s" "[Setup] Installing pip : python package manager... "; pkg_install python-pip
+
+	# Install trizen manually from the AUR
+	printf "%s" "[Setup] Installing trizen : an AUR helper... "
 	if ! [ -x "$(command -v trizen)" ]; then
 		git clone https://aur.archlinux.org/trizen.git >/dev/null 2>&1
-		cd trizen && makepkg --noconfirm --needed -si trizen >/dev/null 2>&1
+		cd trizen && makepkg --noconfirm --needed -si >/dev/null 2>&1
 		cd .. && rm -rf trizen
 	fi
 	echo "done"
 }
 
-# Logs programs that trigger errors when installing
-error() {
-	echo "ERROR - Written to log file"
-	echo "$1" was unable to be installed >> log
-}
-
-# Copies TSARs dotfiles
+# TODO
 dotfiles() {
-	printf "%s" "Copying dotfiles... "
-	\cp -rT dotfiles/ ~/
-	echo "done"
+	git -C /tmp clone https://github.com/Twalaght/dotfiles
+	# cp -r /tmp/dotfiles/.config $HOME/Hamburger
+	# cp -r /tmp/dotfiles/.scripts $HOME/Hamburger
+	rm -rf /tmp/dotfiles
 }
 
-# Installs TSARs set of programs
-proginstall() {
-	# Performs required initial setup
-	initalsetup
-
-	# Counts the total number of programs to be installed
+# TODO
+prog_install() {
+	# Perform initial setup, and count number of programs to be installed
+	init_setup
 	total=$(($(wc -l < progs.csv) - 1))
 
-	# Iterates through the csv, discarding the opening line
+
+	# Read in the CSV, discarding the opening line
 	{ read -r
 	while IFS=, read -r tag program comment; do
-		# Number of the current program being installed
+		# Increment the counter for the current program
 		n=$((n+1))
-		
-		# Remove the carriage return from the comment
+
+		# Strip the comments carriage return
 		comment=$(echo "$comment" | sed -e 's/\r//g')
 
-		# Displays the progress on installation
+		# Display a status message for the respective install
 		printf "%s" "[$n/$total] $program : $comment... "
 
-		# Runs the installation command based on the tag
+		# Execute the appropriate install for the program
 		case "$tag" in
-			"A") aurinstall "$program" ;;
-			"P") pipinstall "$program" ;;
-			*) packageinstall "$program" ;;
+			"A") aur_install "$program";;
+			"P") pip_install "$program";;
+			*) pkg_install "$program";;
 		esac
 	done } < progs.csv
 }
 
-# Installs what was specified by the user
-selection() {
-	if [ -z "$edition" ]; then
-		exit
-	elif [ "$edition" = both ]; then
-		proginstall
-		dotfiles
-	elif [ "$edition" = files ]; then
-		dotfiles
-	elif [ "$edition" = programs ]; then
-		proginstall
-	fi
-}
 
-# Main loop for the script
-menus
-selection
-echo
+prog_install
+dotfiles
 echo "Installation complete!"
