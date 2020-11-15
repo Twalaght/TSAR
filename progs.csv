@@ -22,15 +22,16 @@ Tag,Program,Comment
 ,neovim,powerful text editor
 ,networkmanager,network management tool
 ,network-manager-applet,GUI network manager
+,picom,compositor for xorg
 ,pulseaudio-alsa,audio drivers
 ,scrot,screenshot utility
 ,shellcheck,shell script analysis tool
 ,subversion,version control software
 A,cava,audio visualizer
-A,compton-tryone-git,compositor for the WM
 A,light-git,tool to control screen brightness
 A,pipes.sh,nice to look at
 A,polybar,status bar
+A,pulseaudio-ctl,audio controls
 A,ttf-inconsolata,terminal font of choice
 A,ttf-ms-fonts,collection of Microsoft fonts
 P,pywal,tool to generate colour schemes

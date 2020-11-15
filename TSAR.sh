@@ -41,20 +41,11 @@ init_setup() {
 	echo "done"
 }
 
-# TODO
-dotfiles() {
-	git -C /tmp clone https://github.com/Twalaght/dotfiles
-	# cp -r /tmp/dotfiles/.config $HOME/Hamburger
-	# cp -r /tmp/dotfiles/.scripts $HOME/Hamburger
-	rm -rf /tmp/dotfiles
-}
-
-# TODO
+# Install initial programs, and everything listed in the csv
 prog_install() {
 	# Perform initial setup, and count number of programs to be installed
 	init_setup
 	total=$(($(wc -l < progs.csv) - 1))
-
 
 	# Read in the CSV, discarding the opening line
 	{ read -r
@@ -78,6 +69,36 @@ prog_install() {
 }
 
 
-prog_install
-dotfiles
+
+# TODO
+dotfiles() {
+	git -C /tmp clone https://github.com/Twalaght/dotfiles
+	# cp -r /tmp/dotfiles/.config $HOME/Hamburger
+	# cp -r /tmp/dotfiles/.scripts $HOME/Hamburger
+	rm -rf /tmp/dotfiles
+}
+
+
+misc () {
+	# Remove system beep from kernel load
+	sudo cp misc/nobeep.conf /etc/modprobe.d
+
+	# Enable a global gtk3 dark theme
+	sudo cp misc/settings.ini /etc/gtk-3.0
+
+	# Copy a libinput config to enable natural touchpad scrolling
+	sudo cp misc/30-touchpad.conf /etc/X11/xorg.conf.d
+
+	# TODO
+	# pywal the given background when installing
+}
+
+
+
+# prog_install
+
+# TODO - Could combine the two
+# dotfiles
+# misc
+
 echo "Installation complete!"
