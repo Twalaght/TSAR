@@ -72,10 +72,10 @@ prog_install() {
 config () {
 	# Clone the dotfiles repo and copy them over
 	git -C /tmp clone https://github.com/Twalaght/dotfiles
-	cp -r /tmp/dotfiles/.config $HOME
-	cp -r /tmp/dotfiles/.scripts $HOME
-	cp -r /tmp/dotfiles/* $HOME
-	rm $HOME/README.md
+	cp -r /tmp/dotfiles/.config "$HOME"
+	cp -r /tmp/dotfiles/.scripts "$HOME"
+	cp -r /tmp/dotfiles/* "$HOME"
+	rm "$HOME"/README.md
 	rm -rf /tmp/dotfiles
 
 	# Remove system beep from kernel load
@@ -90,10 +90,10 @@ config () {
 	# Copy the config for the login manager, and copy default images
 	sudo cp misc/lightdm-gtk-greeter.conf /etc/lightdm
 	sudo cp misc/ralsei.png /usr/share/pixmaps
-	sudo cp wallpapers/Field\ of\ Hopes\ and\ Dreams.png /usr/share/pixmaps/login_bg.png
+	sudo cp misc/login_bg.png /usr/share/pixmaps
 
-	# TODO
-	# pywal the given background when installing
+	# Creates a wal theme with the default login background
+	wal --vte -i /usr/share/pixmaps/login_bg.png
 }
 
 prog_install
