@@ -89,6 +89,11 @@ misc () {
 	# Copy a libinput config to enable natural touchpad scrolling
 	sudo cp misc/30-touchpad.conf /etc/X11/xorg.conf.d
 
+	# Copy the config for the login manager, and copy default images
+	sudo cp misc/lightdm-gtk-greeter.conf /etc/lightdm
+	sudo cp misc/ralsei.png /usr/share/pixmaps
+	sudo cp wallpapers/Field\ of\ Hopes\ and\ Dreams.png /usr/share/pixmaps/login_bg.png
+
 	# TODO
 	# pywal the given background when installing
 }

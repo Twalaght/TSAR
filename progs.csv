@@ -8,11 +8,13 @@ Tag,Program,Comment
 ,lightdm-gtk-greeter,login greeter
 ,lightdm-gtk-greeter-settings,settings for the login greeter
 ,cmatrix,nice to look at
+,cool-retro-term,fancy terminal emulator
 ,discord,chat client
 ,feh,image viewer and manager
 ,firefox,web browser
 ,ffmpeg,multimedia manipulation tool
 ,gcc,compiler collection
+,grub-customizer,changes appearance of boot menu
 ,gucharmap,tool to show characters in fonts
 ,htop,a process manager
 ,i3lock,lock utility
