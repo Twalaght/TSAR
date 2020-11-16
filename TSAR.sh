@@ -68,18 +68,16 @@ prog_install() {
 	done } < progs.csv
 }
 
-
-
-# TODO
-dotfiles() {
+# Copy config files and perform misc installation
+config () {
+	# Clone the dotfiles repo and copy them over
 	git -C /tmp clone https://github.com/Twalaght/dotfiles
-	# cp -r /tmp/dotfiles/.config $HOME/Hamburger
-	# cp -r /tmp/dotfiles/.scripts $HOME/Hamburger
+	cp -r /tmp/dotfiles/.config $HOME
+	cp -r /tmp/dotfiles/.scripts $HOME
+	cp -r /tmp/dotfiles/* $HOME
+	rm $HOME/README.md
 	rm -rf /tmp/dotfiles
-}
 
-
-misc () {
 	# Remove system beep from kernel load
 	sudo cp misc/nobeep.conf /etc/modprobe.d
 
@@ -98,12 +96,6 @@ misc () {
 	# pywal the given background when installing
 }
 
-
-
-# prog_install
-
-# TODO - Could combine the two
-# dotfiles
-# misc
-
+prog_install
+config
 echo "Installation complete!"
