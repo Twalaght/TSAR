@@ -92,6 +92,10 @@ config () {
 	sudo cp misc/ralsei.png /usr/share/pixmaps
 	sudo cp misc/login_bg.png /usr/share/pixmaps
 
+	# Manually install the feather icon font pack
+	sudo cp misc/Feather.ttf /usr/share/fonts
+	fc-cache -vf
+
 	# Creates a wal theme with the default login background
 	wal --vte -i /usr/share/pixmaps/login_bg.png
 }
