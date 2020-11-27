@@ -20,6 +20,8 @@ Tag,Program,Comment
 ,i3lock,lock utility
 ,imagemagick,image manipulation tool
 ,man,tool to show manuals
+,mpc,command line interface for mpd
+,mpd,music player daemon
 ,neofetch,system information tool
 ,neovim,powerful text editor
 ,networkmanager,network management tool
@@ -29,6 +31,7 @@ Tag,Program,Comment
 ,scrot,screenshot utility
 ,shellcheck,shell script analysis tool
 ,subversion,version control software
+,udiskie,removable disk mount tool
 A,cava,audio visualizer
 A,light-git,tool to control screen brightness
 A,otf-overpass,status bar font
