@@ -28,10 +28,12 @@ Tag,Program,Comment
 ,network-manager-applet,GUI network manager
 ,picom,compositor for xorg
 ,pulseaudio-alsa,audio drivers
+,ranger,terminal file manager
 ,scrot,screenshot utility
 ,shellcheck,shell script analysis tool
 ,subversion,version control software
 ,udiskie,removable disk mount tool
+,ueberzug,image display tool
 A,cava,audio visualizer
 A,light-git,tool to control screen brightness
 A,otf-overpass,status bar font
