@@ -98,6 +98,9 @@ config () {
 
 	# Creates a wal theme with the default login background
 	wal --vte -i /usr/share/pixmaps/login_bg.png
+
+	# Installs the poly-dark grub theme
+	sudo cp -r misc/poly-dark /boot/grub/themes
 }
 
 prog_install
