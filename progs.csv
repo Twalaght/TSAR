@@ -33,6 +33,7 @@ Tag,Program,Comment
 ,scrot,screenshot utility
 ,shellcheck,shell script analysis tool
 ,subversion,version control software
+,tlp,power management
 ,udiskie,removable disk mount tool
 ,ueberzug,image display tool
 A,cava,audio visualizer
@@ -41,4 +42,5 @@ A,pipes.sh,nice to look at
 A,polybar,status bar
 A,ttf-inconsolata,terminal font of choice
 A,ttf-ms-fonts,collection of Microsoft fonts
+A,tlpui-git,power management control
 P,pywal,tool to generate colour schemes

@@ -101,6 +101,10 @@ config () {
 
 	# Installs the poly-dark grub theme
 	sudo cp -r misc/poly-dark /boot/grub/themes
+
+	# Autostarts some programs
+	sudo systemctl enable NetworkManager
+	sudo systemctl enable tlp
 }
 
 prog_install
