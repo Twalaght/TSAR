@@ -26,6 +26,7 @@ Tag,Program,Comment
 ,neovim,powerful text editor
 ,networkmanager,network management tool
 ,network-manager-applet,GUI network manager
+,otf-overpass,status bar font
 ,picom,compositor for xorg
 ,pulseaudio-alsa,audio drivers
 ,ranger,terminal file manager
@@ -36,7 +37,6 @@ Tag,Program,Comment
 ,ueberzug,image display tool
 A,cava,audio visualizer
 A,light-git,tool to control screen brightness
-A,otf-overpass,status bar font
 A,pipes.sh,nice to look at
 A,polybar,status bar
 A,ttf-inconsolata,terminal font of choice
