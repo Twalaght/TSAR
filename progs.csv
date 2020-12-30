@@ -16,6 +16,7 @@ Tag,Program,Comment
 ,gcc,compiler collection
 ,grub-customizer,changes appearance of boot menu
 ,gucharmap,tool to show characters in fonts
+,highlight,coloured cat
 ,htop,a process manager
 ,i3lock,lock utility
 ,imagemagick,image manipulation tool
