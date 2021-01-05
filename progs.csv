@@ -20,6 +20,7 @@ Tag,Program,Comment
 ,htop,a process manager
 ,i3lock,lock utility
 ,imagemagick,image manipulation tool
+,lolcat,colorized output
 ,man,tool to show manuals
 ,mpc,command line interface for mpd
 ,mpd,music player daemon
